@@ -18,6 +18,7 @@ var xDirection = 1;
 var yDirection = 0;
 const DELAY = 140;
 var first;
+var pieceSize = 20;
 
 function init() {
     canvas = document.getElementById('myCanvas');
@@ -25,12 +26,18 @@ function init() {
     
     loadImages();
     initSnake();
+    initCandy();
     gameCycle();
 }    
 
+function initCandy(){
+    candyX = 10;
+    candyY = 10;
+}
+
 function initSnake() {
-    first = new Coord(80,0);
-    first.setNext(new Coord(40,0));
+    first = new Coord(2,0);
+    first.setNext(new Coord(1,0));
     first.next.setNext(new Coord(0,0));
 }
 
@@ -109,7 +116,7 @@ function removeOldTail(){
 }
 
 function addNewHead() {
-    var newHead = new Coord(first.x + 40 * xDirection, first.y + 40 * yDirection);
+    var newHead = new Coord(first.x + xDirection, first.y + yDirection);
     newHead.next = first;
     first = newHead;
 }
@@ -119,13 +126,13 @@ function doDrawing() {
     
     drawSnake();
 
-    ctx.drawImage(snakeCandy, 400, 400);
+    ctx.drawImage(snakeCandy, candyX * pieceSize, candyY * pieceSize);
 }
 
 function drawSnake() {
     var current = first;
     do {
-        ctx.drawImage(snakeBody, current.x, current.y);
+        ctx.drawImage(snakeBody, current.x * pieceSize, current.y * pieceSize);
         current = current.next;
     } while (current != null);
 }
