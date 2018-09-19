@@ -42,12 +42,11 @@ function init() {
 function detectEatingCandy() {
     if(candyX == first.x && candyY == first.y) {
         ++points;
-        //document.write(points);
+
         if (points % 5 == 0){
             increasSnakeLength = true;
         }
-        //poäng
-        // if 5 gör ormen längre
+
         initCandy();
     }
 } 
@@ -77,12 +76,7 @@ function gameCycle() {
     addNewHead();
     handleCanvasEdges();
     detectEatingCandy();
-    
-    if (!increasSnakeLength) {
-        removeOldTail();
-    } else {
-        increasSnakeLength = false;
-    }
+    PossiblyIncreaseSnakeLength();
 
     setTimeout("gameCycle()", DELAY);
 }
@@ -93,6 +87,15 @@ document.onkeydown = function(event) {
     }
     else if (event.keyCode == 37) {
         handleLeftArrowKeyboardEvent();
+    }
+}
+
+function PossiblyIncreaseSnakeLength() {
+    if (!increasSnakeLength) {
+        removeOldTail();
+    }
+    else {
+        increasSnakeLength = false;
     }
 }
 
